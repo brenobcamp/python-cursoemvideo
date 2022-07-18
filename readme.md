@@ -1,2 +1,3 @@
 Olá!
-Essa pasta contem os exercícios do curso de python do canal Curso em Vídeo respondidos por mim
+Essa pasta contem algumas soluções para desafios de programação em Python. Desafios retirados das seguintes fontes: 
+- Curso de python do canal Curso em Vídeo
