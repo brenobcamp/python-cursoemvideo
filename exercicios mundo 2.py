@@ -1,5 +1,7 @@
 # Exercicios do Curso em Video de Python Mundo 2
 # 036
+from numpy import append, median
+
 def compraCasa():
     valor = int(input("Digite o valor da casa: "))
     salario = int(input("Digite o salário do comprador: "))
@@ -16,11 +18,11 @@ def conversao():
     num = int(input("Digite o número a ser convertido: "))
     modo = int(input("Digite a conversão desejada:\n1 para binário\n2 para octal\n3 para hexadecimal\n"))
     if modo == 1:
-        print("\033[1;33mO número em binário é: {}\033[m".format(bin(num)))
+        print("\033[1;33mO número em binário é: {:b}\033[m".format(num))
     elif modo == 2:
-        print("\033[1;33mO número em octal é: {}\033[m".format(oct(num)))
+        print("\033[1;33mO número em octal é: {:o}\033[m".format(num))
     elif modo == 3:
-        print("\033[1;33mO número em hexadecimal é: {}\033[m".format(hex(num)))
+        print("\033[1;33mO número em hexadecimal é: {:X}\033[m".format(num))
     else:
         print("Erro! Digite 1, 2 ou 3")
 #conversao()
@@ -50,10 +52,12 @@ def alistamento():
         print("Você está em idade de se alistar!")
     elif idade > 17:
         tempo = idade - 17
-        print("Você já passou {} anos da idade de se alistar.".format(tempo))
+        data = ano + 17
+        print("Você já passou {} anos da idade de se alistar. Você deveria ter se alistado em {}".format(tempo, data))
     else:
         futuro = (-17 + idade)*-1
-        print("Faltam {} anos para você se alistar.".format(futuro))
+        dataf = ano + futuro
+        print("Faltam {} anos para você se alistar. Você deve se alistar em {}".format(futuro, dataf))
 #alistamento()
 
 # 040
@@ -98,7 +102,7 @@ def triangulo():
     c = float(input("Valor: "))
     if a < (b + c) and b < (a + c) and c < (a + b):
         print("Forma triângulo")
-        if a == b and a == c and b == c:
+        if a == b == c:
             print("O triangulo formado é equilátero")
         elif a == b or a == c or b == c:
             print("O triangulo formado é isósceles")
@@ -110,7 +114,7 @@ def triangulo():
 
 # 043
 def imc():
-    peso = float(input("Digite seu peso: "))
+    peso = float(input("Digite seu peso [kg]: "))
     alt = float(input("Digite sua altura [em metros]: "))
     imc = peso/(alt**2)
     if imc < 18.5:
@@ -127,23 +131,44 @@ def imc():
 
 # 044
 def desconto():
+    print("="*15, "Loja", "="*15)
     valor = float(input("Digite o valor do produto: R$"))
-    pag = int(input("Digite a forma de pagamento:\nÀ vista em dinheiro: 1\nÀ vista no cartão: 2\n2x no cartão: 3\n3x ou mais no cartão: 4\n"))
+    pag = int(input("FORMAS DE PAGAMENTO\n[1] Dinheiro\n[2] Cartão\nDigite a forma de pagamento: "))
+    #\n2x no cartão: 3\n3x ou mais no cartão: 4\n"))
     if pag == 1:
         print("O produto tem desconto de 10 por cento e sai por R${:.2f}".format(valor*0.9))
     elif pag == 2:
-        print("O produto tem desconto de 5 por cento e sai por R${:.2f}".format(valor*0.95))
-    elif pag == 3:
-        print("O produto não tem desconto e sai por R${:.2f}".format(valor))
-    elif pag == 4:
-        print("O produto recebe juros de 20 por cento e sai por R${:.2f}".format(valor*1.2))
+        print("[1] À vista\n[2] Parcelado em 2x\n[3] Parcelado em 3x ou mais")
+        parcela = int(input("Digite a forma de pagamento: "))
+        if parcela == 1:
+            print("O produto tem desconto de 5 por cento e sai por R${:.2f}".format(valor*0.95))
+        elif parcela == 2:
+            print("O produto não tem desconto e sai por R${:.2f}".format(valor))
+        elif parcela == 3:
+            par = int(input("Em quantas vezes? (até 12x) "))
+            if par <= 12:
+                print("O produto recebe juros de 20 por cento e sai por R${:.2f}.\nParcelado em {} vezes, cada parcela é {}".format(valor*1.2, par, (valor*1.2)/par))
+            else:
+                print("Número de parcelas inválido. Tente novamente")
+        else:
+            print("Erro! Digite um método válido")
+    else:
+        print("Opção inválida. Tente novamente\n")
+        desconto()
 #desconto()
 
 # 045
 def jokenpo():
     from random import choice
+    from time import sleep
     player = input("Escolha pedra, papel ou tesoura: ").strip().lower()
     maq = choice("pedra papel tesoura".split())
+    print("JO")
+    sleep(1)
+    print("KEN")
+    sleep(1)
+    print("PO!!!\n")
+    print("="*20, "\n")
     if player == maq:
         print("Empatamos!\nNós dois escolhemos {}".format(player.capitalize()))
     elif player == 'papel' and maq == 'tesoura':
@@ -158,5 +183,133 @@ def jokenpo():
         print("Eu ganhei!\nMinha pedra quebra sua tesoura")
     elif player == 'pedra' and maq == 'tesoura':
         print("Você ganhou!\nSua pedra quebra minha tesoura")
-jokenpo()
-    
+    else:
+        print("Erro! Digite pedra, papel ou tesoura\n")
+        jokenpo()
+#jokenpo()
+
+# 046
+def anoNovo():
+    from time import sleep
+    for c in range(10, 0, -1):
+        print(c)
+        sleep(0.5)
+        if c == 1:
+            print("\U0001f386\U0001f37e"*10, "HAPPY NEW YEAR!", "\U0001f386\U0001f37e"*10)
+#anoNovo()
+
+# 047
+def pares():
+    for c in range(2, 51, 2):
+        print(c, end =" ")
+#pares()
+
+# 048
+def impares():
+    s = 0
+    cont = 0
+    for c in range(1, 501, 2):
+        if c%3 == 0:
+            s += c
+            cont += 1
+    print("A soma de todos os números impares divisiveis por 3 ({}) de 1 a 500 é: {}".format(cont,s))
+impares()
+
+# 049
+def tabuada():
+    x = int(input("Digite um número para saber sua tabuada: "))
+    for c in range(1, 11):
+        print("{} x {} = {}".format(x, c, x*c))
+#tabuada()
+
+# 050
+def somadospares():
+    y = 0
+    for c in range(1, 5):
+        x = int(input("[{}] Digite um número: ".format(c)))
+        if x%2 == 0:
+            x += c
+    print("A soma dos números pares digitados é: {}".format(y))
+#somadospares()
+
+# 051
+def PA():
+    a = int(input("Digite o primeiro termo da progressão aritmética: "))
+    b = int(input("Digite a razão da progressão: "))
+    print("="*20, "\nPA de {} com razão {}:".format(a, b))
+    for x in range(1, 11):
+        c = a + x*b
+        print(c, end = " ")
+#PA()
+
+# 052
+def primo():
+    x = int(input("Digite um número para saber se ele é primo: "))
+    if x%x == 0 and x%2 != 0:
+        print("Esse número é primo")
+    else:
+        print("Esse número não é primo")
+#primo()
+
+# 053
+def palindromo():
+    frase = str(input("Digite uma frase: ")).strip()
+    fraset = frase.lower().replace(" ", "")
+    palindromo = fraset[-1]
+    for c in range(len(fraset)-2, -1, -1):
+        palindromo += fraset[c]
+    if palindromo == fraset:
+        print("A frase '{}' é um palindromo!".format(frase))
+    elif palindromo != fraset:
+        print("A frase '{}' não é um palindromo!".format(frase))
+#palindromo()
+
+# 054
+def osMaiores():
+    from datetime import date
+    ano = []
+    atual = date.today().year
+    soma = 0
+    idades = []
+    for c in range(1, 8):
+        ano.append(int(input("Digite a idade da pessoa {}: ".format(c))))
+    for b in range(0, 7):
+        idades.append(int(atual - ano[b]))
+    for i in range(0, 7):
+        if (atual - ano[i]) >= 21:
+            soma += 1
+    print("Os anos relatados foram: {}\nAs idades relatadas foram: {}\nTotal de pessoas que são maiores de idade: {}\nTotal de pessoas que são menores: {}".format(ano, idades, soma, 7-soma))
+#osMaiores()
+
+# 055
+def pesos():
+    pesos = []
+    for c in range(1, 6):
+         pesos.append(int(input("Digite a peso da pessoa {}: ".format(c))))
+    print("Os pesos inseridos foram: {}\nO maior peso é {} e o menor é {}".format(pesos, max(pesos), min(pesos)))
+#pesos()
+
+# 056
+def osQuatro():
+    nome = []
+    idade = []
+    sexo = []
+    for c in range(1, 6):
+        nome.append(str(input("Digite o nome da pessoa {}: ".format(c).capitalize())))
+        idade.append(int(input("Digite a idade da pessoa {}: ".format(c))))
+        sexo.append(str(input("Digite o sexo da pessoa {}: ".format(c))))
+    print(nome)
+    print(idade)
+    print(sexo)
+    print("A média de idade do grupo é: ", (median(idade[0:4])))
+    for m in range(0, 5):
+        if idade[m] == max(idade) and sexo[m] == 'h':
+            print("O homem com maior idade é {} com {} anos".format(nome[m], idade[m]))
+    soma = 0
+    for f in range(0, 5):
+        if idade[f] < 20 and sexo[f] == 'm':
+            soma += 1
+    print("Quantidade de mulheres com menos de 20 anos: ", soma)
+
+#osQuatro()
+
