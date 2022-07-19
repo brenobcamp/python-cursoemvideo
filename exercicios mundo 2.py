@@ -213,7 +213,7 @@ def impares():
             s += c
             cont += 1
     print("A soma de todos os números impares divisiveis por 3 ({}) de 1 a 500 é: {}".format(cont,s))
-impares()
+#impares()
 
 # 049
 def tabuada():
@@ -225,11 +225,13 @@ def tabuada():
 # 050
 def somadospares():
     y = 0
-    for c in range(1, 5):
+    a = 0
+    for c in range(1, 7):
         x = int(input("[{}] Digite um número: ".format(c)))
         if x%2 == 0:
-            x += c
-    print("A soma dos números pares digitados é: {}".format(y))
+            y += x
+            a += 1
+    print("Você digitou {} números pares. A soma dos números pares digitados é: {}".format(a, y))
 #somadospares()
 
 # 051
@@ -237,18 +239,31 @@ def PA():
     a = int(input("Digite o primeiro termo da progressão aritmética: "))
     b = int(input("Digite a razão da progressão: "))
     print("="*20, "\nPA de {} com razão {}:".format(a, b))
-    for x in range(1, 11):
-        c = a + x*b
-        print(c, end = " ")
+    print(a, end = " ")
+    for x in range(1, 10):
+        print("{}".format(a + x*b), end = " ")
 #PA()
 
 # 052
 def primo():
     x = int(input("Digite um número para saber se ele é primo: "))
     if x%x == 0 and x%2 != 0:
-        print("Esse número é primo")
+        for c in range(1, x+1):
+            if c == x or c == 1:
+                print("\033[32m ", c, end = "\033[m ")
+            else:
+                print("\033[31m ", c, end = "\033[m ")
+        print("\nEsse número é primo")
     else:
-        print("Esse número não é primo")
+        soma = 0
+        for b in range(1, x+1):
+            if x%b == 0:
+                print("\033[32m ", b, end = "\033[m ")
+                soma += 1
+            else:
+                print("\033[31m ", b, end = "\033[m ")
+        print("\nEsse número não é primo")
+        print("O número {} foi divisível {} vezes".format(x, soma))
 #primo()
 
 # 053
@@ -263,6 +278,14 @@ def palindromo():
     elif palindromo != fraset:
         print("A frase '{}' não é um palindromo!".format(frase))
 #palindromo()
+
+def pal2(): ## resposta da internet
+    frase = input("Qual é a frase?").upper().replace(" ", "")
+    if frase == frase[::-1]:
+        print("palindromo")
+    else:
+        print("Não é palindromo")
+#pal2()
 
 # 054
 def osMaiores():
@@ -293,23 +316,17 @@ def pesos():
 def osQuatro():
     nome = []
     idade = []
-    sexo = []
-    for c in range(1, 6):
-        nome.append(str(input("Digite o nome da pessoa {}: ".format(c).capitalize())))
-        idade.append(int(input("Digite a idade da pessoa {}: ".format(c))))
-        sexo.append(str(input("Digite o sexo da pessoa {}: ".format(c))))
-    print(nome)
-    print(idade)
-    print(sexo)
-    print("A média de idade do grupo é: ", (median(idade[0:4])))
-    for m in range(0, 5):
-        if idade[m] == max(idade) and sexo[m] == 'h':
-            print("O homem com maior idade é {} com {} anos".format(nome[m], idade[m]))
+    sexo = [] 
     soma = 0
-    for f in range(0, 5):
-        if idade[f] < 20 and sexo[f] == 'm':
+    for c in range(1, 5):
+        nome.append(str(input("Digite o nome da pessoa {}: ".format(c).strip().capitalize())))
+        idade.append(int(input("Digite a idade da pessoa {}: ".format(c))))
+        sexo.append(str(input("Digite o sexo da pessoa {}: ".format(c))).strip())
+    print("A média de idade do grupo é: ", (median(idade[0:3])))
+    for m in range(0, 4):
+        if idade[m] == max(idade) and sexo[m] == 'h':
+            print("O homem com maior idade é {} com {} anos".format(nome[m].capitalize(), idade[m]))
+        if idade[m] < 20 and sexo[m] == 'm':
             soma += 1
     print("Quantidade de mulheres com menos de 20 anos: ", soma)
-
-#osQuatro()
-
+osQuatro()
