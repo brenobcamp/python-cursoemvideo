@@ -1,5 +1,7 @@
 # Exercicios do Curso em Video de Python Mundo 2
 # 036
+from asyncio.windows_events import NULL
+from math import factorial
 from numpy import append, median
 
 def compraCasa():
@@ -249,7 +251,7 @@ def primo():
     x = int(input("Digite um número para saber se ele é primo: "))
     if x%x == 0 and x%2 != 0:
         for c in range(1, x+1):
-            if c == x or c == 1:
+            if c == x or c == 1 or x/c != NULL:
                 print("\033[32m ", c, end = "\033[m ")
             else:
                 print("\033[31m ", c, end = "\033[m ")
@@ -329,4 +331,215 @@ def osQuatro():
         if idade[m] < 20 and sexo[m] == 'm':
             soma += 1
     print("Quantidade de mulheres com menos de 20 anos: ", soma)
-osQuatro()
+#osQuatro()
+
+#Aula 014
+# 057
+def sexo ():
+    sexo = input("Digite seu sexo [M/F]: ").lower().strip()[0]
+    if sexo not in "MmFf":
+        while sexo != 'm' and sexo != 'f':
+            print ("Digite M ou F")
+            sexo = input("Digite seu sexo [M/F]: ").lower()
+    if sexo in 'Mm':
+        print("Você é do sexo masculino")
+    else:
+        print("Você é do sexo feminino")
+#sexo()
+
+# 058 28 melhorado
+from random import choice
+def adivinhe():
+    opcoes = "1 2 3 4 5 6 7 8 9 10".split()
+    computador = choice(opcoes)
+    palpites = 1
+    jogador = input("Pensei em um número de 1 a 10. Tente adivinhar: ")
+    if jogador != computador:
+        while jogador != computador:
+            jogador = input("Você errou! Tente novamente\nDigite um número de 1 a 10: ")
+            palpites += 1
+    if palpites == 1:
+        print("Você acertou de primeira! Pensei no número {}".format(computador))
+    else:
+        print("Agora você acertou! Você levou {} palpites para acertar que pensei no número {}".format(palpites, computador))
+#adivinhe()
+
+# 059
+def calculadora():
+    num1 = int(input("Digite o primeiro valor: "))
+    num2 = int(input("Digite o segundo valor: "))
+    exit = 0
+    print("="*20, " Menu ", "="*20, "\n[1] Somar\n[2] Multiplicar\n[3] Maior\n[4] Novos valores\n[5] Sair do programa\n")
+    while exit == 0:
+        opcao = int(input("Digite a operação a ser realizada: "))
+        if opcao == 1:
+            print("A soma de {} e {} é igual a {}".format(num1, num2,num1+num2))
+        elif opcao == 2:
+            print("A soma de {} por {} é igual a {}".format(num1, num2,num1*num2))
+        elif opcao == 3:
+            if num1 > num2:
+                print("{} é maior que {}".format(num1, num2))
+            elif num1 < num2:
+                print("{} é maior que {}".format(num2, num1))
+            else:
+                print("Os valores são iguais!")
+        elif opcao == 4:
+            print("Digite os valores novamente")
+            num1 = int(input("Digite o primeiro valor: "))
+            num2 = int(input("Digite o segundo valor: "))
+        elif opcao == 5:
+            print("Programa encerrado")
+            exit += 1
+        else:
+            print("Digite uma opção válida")
+            calculadora()        
+#calculadora()
+
+# 060
+def inserirNum():
+    x = int(input("Digite um número: "))
+    return x
+
+def fatorial():
+    num1 = inserirNum()
+    fat = 1
+    print("Fatorial de {}!: ".format(num1), end = "")
+    for p in range(num1, 0, -1):
+        fat = fat*p
+        if p == num1:
+            print("{}".format(p), end="")
+        else:
+            print("x{}".format(p), end="")
+    print(" = {}".format(fat))
+#fatorial()
+
+def fatorialWhile():
+    num = inserirNum()
+    seq = 0
+    fact = 1
+    print("Fatorial de {}: ".format(num), end = "")
+    fatstr = ""
+    while seq != num:
+        seq += 1
+        fact = fact*seq
+        if seq == 1:
+            fatstr= fatstr + str(seq)
+        else:
+            fatstr= fatstr + "x" + str(seq)
+    print(fatstr[::-1], "=", fact)  
+#fatorialWhile()
+def fatorialWhile2():
+    num = inserirNum()
+    seq = num
+    fac = 1
+    print("Fatorial de {}!: ".format(num), end = "")
+    while seq > 0:
+        print("{}x".format(seq), end = "")
+        fac = fac * seq
+        seq-= 1 
+    print(" = {}".format(fac))
+#fatorialWhile2()
+
+# 061 51 melhorado
+def PA2():
+    ptermo = int(input("Digite o primeiro termo da progressão aritmética: "))
+    razao = int(input("Digite a razão da progressão: "))
+    print("="*20, "\nPA de {} com razão {}:".format(ptermo, razao))
+    print(ptermo, end = " ")
+    pa = 0
+    while pa < 9:
+        pa += 1
+        print("{}".format(ptermo + pa*razao), end = " ")
+#PA2()
+
+# 062
+def PA3():    
+    pa = 0   
+    termos = 1
+    ptermo = int(input("Digite o primeiro termo da progressão aritmética: "))
+    razao = int(input("Digite a razão da progressão: "))
+    
+    print("="*20, "\nPA de {} com razão {}:".format(ptermo, razao))
+    print(ptermo, end = " ")
+    
+    while pa < 9:
+        pa += 1
+        print("{}".format(ptermo + pa*razao), end = " ")
+    while termos > 0:    
+        termos = int(input("\nDeseja ver mais termos? Digite a quantidade (Digite 0 para sair): "))
+        if termos > 0:
+            t = termos + pa
+            while pa <= t:
+                print("{}".format(ptermo + pa*razao), end = " ") 
+                pa += 1
+        else:
+            print("Programa encerrado com {} termos mostrados.".format(t+1))
+            termos = 0
+#PA3()
+
+# 063
+def fibonacci():
+    num = inserirNum()
+    b = num - 1
+    a = 0
+    print(num, end = " ")
+    while b != a:
+        num = num+(num-1)
+        a += 1
+        print(num, end = " ")
+#fibonacci()
+
+def fibonacci2():
+    num = inserirNum()
+    t1 = 0
+    t2 = 1
+    t3 = 0
+    c = 0
+    print("{} - {} ".format(t1, t2), end = " ")
+    while c <= num:
+        t3 = t1 + t2
+        print("{} - ".format(t3), end = "")
+        t1 = t2
+        t2 = t3
+        c += 1
+#fibonacci2()
+
+
+# 064
+def os999 ():
+    num = 0
+    soma = 0
+    total = 0
+    while num != 999:
+        num = int(input("Digite um número (Digite 999 para sair): "))
+        if num != 999:
+            soma = soma + num
+            total += 1
+        else:
+            print("Total de números digitados: {}\nSoma dos números digitados: {}".format(total, soma))
+#os999()
+
+# 065
+def mediaSoma ():
+    a = 1
+    numero = []
+    media = 0
+    soma = 0
+    while a > 0:
+        num = inserirNum()
+        numero.append(num)
+        media = media + num
+        soma += 1
+        b = input("Quer continuar [S/N]: ").upper().strip()
+        if b == "N":
+            a = 0
+            print("Números digitados: ", numero)
+            print("A média entre os valores digitados é: {}\nO maior valor digitado é {}\nO menor valor digitador é {}".format(media/soma, max(numero), min(numero)))
+#mediaSoma()
+
+
+
+    
+            
+
+
